@@ -1,6 +1,5 @@
-/* eslint-disable testing-library/prefer-screen-queries */
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Profile from "./Profile";
 
 describe("<Profile />", () => {
@@ -15,11 +14,11 @@ describe("<Profile />", () => {
     expect(utils.container).toMatchSnapshot();
   });
   it("shows the props correctly", () => {
-    const utils = render(<Profile username="gywlsp" name="박효진" />);
+    render(<Profile username="gywlsp" name="박효진" />);
     // getByText(:쿼리 함수), 텍스트를 사용해서 원하는 DOM 선택 가능
     // 다른 쿼리 함수: https://velog.io/@velopert/react-testing-library#%EB%8B%A4%EC%96%91%ED%95%9C-%EC%BF%BC%EB%A6%AC
-    utils.getByText("gywlsp"); // gywlsp 라는 텍스트를 가진 엘리먼트가 있는지 확인
-    utils.getByText("(박효진)"); // (박효진) 이라는 텍스트를 가진 엘리먼트가 있는지 확인
-    utils.getByText(/박/); // 정규식 /박/ 을 통과하는 엘리먼트가 있는지 확인
+    screen.getByText("gywlsp"); // gywlsp 라는 텍스트를 가진 엘리먼트가 있는지 확인
+    screen.getByText("(박효진)"); // (박효진) 이라는 텍스트를 가진 엘리먼트가 있는지 확인
+    screen.getByText(/박/); // 정규식 /박/ 을 통과하는 엘리먼트가 있는지 확인
   });
 });
