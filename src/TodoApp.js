@@ -34,10 +34,20 @@ const TodoApp = () => {
     [todos]
   );
 
+  const onToggle = useCallback(
+    (id) => {
+      setTodos(
+        todos.map((todo) =>
+          todo.id === id ? { ...todo, done: !todo.done } : todo
+        )
+      );
+    },
+    [todos]
+  );
   return (
     <>
       <TodoForm onInsert={onInsert} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onToggle={onToggle} />
     </>
   );
 };
