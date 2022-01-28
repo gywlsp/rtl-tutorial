@@ -4,15 +4,24 @@ import { screen, render, fireEvent } from "@testing-library/react";
 import TodoForm from "./TodoForm";
 
 describe("<TodoForm />", () => {
+  const setup = (props = {}) => {
+    render(<TodoForm {...props} />);
+    const input = screen.getByPlaceholderText("할 일을 입력하세요"); // input 이 있는지 확인
+    const button = screen.getByText("등록"); // button이 있는지 확인
+    return {
+      input,
+      button,
+    };
+  };
+
   it("has input and a button", () => {
-    render(<TodoForm />);
-    screen.getByPlaceholderText("할 일을 입력하세요"); // input 이 있는지 확인
-    screen.getByText("등록"); // button이 있는지 확인
+    const { input, button } = setup();
+    expect(input).toBeTruthy(); // 해당 값이 truthy 한 값인지 확인
+    expect(button).toBeTruthy();
   });
 
   it("changes input", () => {
-    render(<TodoForm />);
-    const input = screen.getByPlaceholderText("할 일을 입력하세요");
+    const { input } = setup();
     fireEvent.change(input, {
       target: {
         value: "TDD 배우기",
@@ -23,9 +32,7 @@ describe("<TodoForm />", () => {
 
   it("calls onInsert and clears input", () => {
     const onInsert = jest.fn();
-    render(<TodoForm onInsert={onInsert} />);
-    const input = screen.getByPlaceholderText("할 일을 입력하세요");
-    const button = screen.getByText("등록");
+    const { input, button } = setup({ onInsert }); // props 가 필요 할땐 이렇게 직접 파라미터로 전달
     // 수정하고
     fireEvent.change(input, {
       target: {
