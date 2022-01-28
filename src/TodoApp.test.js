@@ -28,4 +28,15 @@ describe("<TodoApp />", () => {
     // 해당 항목이 보여져야합니다.
     screen.getByText("새 항목 추가하기");
   });
+
+  it("toggles todo", () => {
+    render(<TodoApp />);
+    // TDD 배우기 항목에 클릭 이벤트를 발생시키고 text-decoration 속성이 설정되는지 확인
+    const todoText = screen.getByText("TDD 배우기");
+    expect(todoText).toHaveStyle("text-decoration: line-through;");
+    fireEvent.click(todoText);
+    expect(todoText).not.toHaveStyle("text-decoration: line-through;");
+    fireEvent.click(todoText);
+    expect(todoText).toHaveStyle("text-decoration: line-through;");
+  });
 });
