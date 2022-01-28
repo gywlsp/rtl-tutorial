@@ -39,4 +39,13 @@ describe("<TodoApp />", () => {
     fireEvent.click(todoText);
     expect(todoText).toHaveStyle("text-decoration: line-through;");
   });
+
+  it("removes todo", () => {
+    render(<TodoApp />);
+    const todoText = screen.getByText("TDD 배우기");
+    // eslint-disable-next-line testing-library/no-node-access
+    const removeButton = todoText.nextSibling;
+    fireEvent.click(removeButton);
+    expect(todoText).not.toBeInTheDocument(); // 페이지에서 사라졌음을 의미함
+  });
 });
